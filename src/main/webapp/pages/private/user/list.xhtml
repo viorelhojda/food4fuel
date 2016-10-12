@@ -1,0 +1,150 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+
+		<ui:define name="content">
+			<h:outputScript name="jquery/jquery.js" library="primefaces" target="head" />
+
+			<h:form id="mainForm">
+				<div class="ContainerIndent">
+					<div class="EmptyBox5" />
+					
+					<div class="Fright">
+						<p:commandButton id="userCreateBtn" icon="fa icon-plus Fs14 white" value="#{msg.createUser}" immediate="true"
+							rendered="#{userMB.permissionUserCreate()}"
+							actionListener="#{usersMB.instantiateNewUser()}"
+							onclick="PF('userCreateDialogWidget').show();"
+							update=":mainForm:userCreateDialogForm">
+						</p:commandButton>
+					</div>
+					
+					<div class="EmptyBox5" />
+
+					<div class="Container">
+						<p:dataTable id="usersTableID" var="user" widgetVar="usersTable" value="#{usersMB.users}"
+							rows="50" sortMode="multiple" filteredValue="#{usersMB.users}"
+							filterEvent="enter"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,50,100" paginatorPosition="bottom"
+							paginator="true" emptyMessage="#{msg.noUsers}">
+
+							<f:facet name="header">
+								<div class="Fleft">
+									<ui:include src="../templates/export.xhtml">
+										<ui:param name="label" value="#{msg.export}" />
+										<ui:param name="fileName" value="#{msg.exportUsersFileName}" />
+										<ui:param name="dataTable" value="usersTableID" />
+										<ui:param name="hasData" value="#{usersMB.users ne null}" />
+									</ui:include>
+								</div>
+								
+								<h:outputText value="#{msg.users}"/>
+							</f:facet>
+
+							<p:column headerText="#{msg.id}" styleClass="Wid5"
+								sortBy="#{user.id}" 
+								filterBy="#{user.id}" filterMatchMode="exact">
+								<h:outputText value="#{user.id}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.username}" styleClass="Wid10"
+								sortBy="#{user.account.username}"
+								filterBy="#{user.account.username}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.username}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.fullName}"
+								sortBy="#{user.account.firstNameLastName}"
+								filterBy="#{user.account.firstNameLastName}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.firstNameLastName}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.role}" styleClass="Wid10"
+								sortBy="#{user.role.code}"
+								filterBy="#{user.role.code}" filterMatchMode="contains">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('usersTable').filter()" filter="true" filterMatchMode="contains" styleClass="Wid70">
+										<f:selectItem itemLabel="#{msg.all}" itemValue="#{null}" noSelectionOption="true"/>
+										<f:selectItems value="#{processesListMB.allRoles}" var="profile" itemValue="#{profile.code}" itemLabel="#{profile.code}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<h:outputText value="#{user.role.code}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.active}" styleClass="Wid5" sortBy="#{user.active}">
+								<h:outputText value="#{user.active}" converter="booleanValueConverter"/>
+							</p:column>
+							
+							<p:column headerText="#{msg.username}"
+								sortBy="#{user.account.username}"
+								filterBy="#{user.account.username}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.username}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.email}"
+								sortBy="#{user.account.email}"
+								filterBy="#{user.account.email}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.email}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.project}"
+								sortBy="#{user.account.project}"
+								filterBy="#{user.account.project}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.project}" />
+							</p:column>
+							
+							<p:column headerText="#{msg.phone}"
+								sortBy="#{user.account.phone}"
+								filterBy="#{user.account.phone}"
+								filterMatchMode="contains" filterStyleClass="Wid90">
+								<h:outputText value="#{user.account.phone}" />
+							</p:column>
+							
+
+							<p:column headerText="#{msg.actions}" styleClass="Wid10" exportable="false" rendered="#{userMB.permissionUserUpdate()}">
+								<p:commandButton id="userInfoBtn"
+									rendered="#{userMB.permissionUserUpdate()}"
+									icon="fa icon-edit-1 Fs12" styleClass="GrayButton"
+									immediate="true" onclick="PF('userUpdateDialogWidget').show();"
+									update=":mainForm:userUpdateDialogForm">
+									<f:setPropertyActionListener target="#{usersMB.user}" value="#{user}" />
+								</p:commandButton>
+
+								<p:commandButton icon="fa icon-trash-2 Fs12 red" styleClass="GrayButton"
+									actionListener="#{usersMB.deleteUser(user)}" 
+									update=":mainForm:usersTableID">
+									<p:confirm header="#{msg.confirmation}" message="#{msg.deleteUserConfirmation}" icon="ui-icon-alert"/>
+								</p:commandButton>
+
+								<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+									<p:commandButton value="#{msg.no}" type="button"
+										styleClass="ui-confirmdialog-no"
+										icon="ui-icon-close fa fa-close Fs14 white" />
+									<p:commandButton value="#{msg.yes}" type="button"
+										styleClass="ui-confirmdialog-yes"
+										icon="ui-icon-check fa fa-check Fs14 white" />
+								</p:confirmDialog>
+							</p:column>
+						</p:dataTable>
+						
+						<ui:include src="../dialogs/userUpdateDialog.xhtml" />
+						<ui:include src="../dialogs/userCreateDialog.xhtml" />
+					</div>
+				</div>
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

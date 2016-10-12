@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+
+		<div class="ContainerIndent">
+                <div class="ContainerIndent">
+                	
+                	 <p:panel styleClass="leaden-back">
+                        <div class="Fs20 TexAlCenter red">Build Configuration</div>
+                        <div class="EmptyBox10"></div>
+                        
+                        <p>Application Version: #{applicationMB.applicationVersionedName}</p>
+                        <p>Application Build Date: #{applicationMB.applicationBuildDate}</p>
+                        <p>Application Build By: #{applicationMB.applicationBuildBy}</p>
+                        <p>Application Build With: #{applicationMB.applicationBuildWith}</p>
+                        <p>Application Build JDK: #{applicationMB.applicationBuildJDK}</p>
+                        
+                        <div class="EmptyBox10"></div>
+                        
+                        <p:dataTable id="jarsTableID" var="jar" value="#{applicationMB.applicationDependecies}">
+                        	<p:column headerText="Dependencies">
+								<h:outputText value="#{jar}" />
+							</p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    
+                </div>
+        </div>
+	</ui:define>
+
+</ui:composition>

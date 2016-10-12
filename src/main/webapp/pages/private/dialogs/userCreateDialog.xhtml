@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="userCreateDialogWidget" id="userCreateDialogId"
+		header="#{msg.create}" width="700" modal="true" closeOnEscape="true"
+		dynamic="true" closable="true" draggable="true" resizable="false"
+		appendTo="@(body)">
+		
+		<h:form id="userCreateDialogForm" prependId="false">
+			
+<!-- 			<p:selectOneMenu value="#{usersMB.user.account}" -->
+<!-- 				required="true" label="*#{msg.account}" filter="true" -->
+<!-- 				filterMatchMode="contains" converter="accountConverter" -->
+<!-- 				styleClass="Wid90"> -->
+<!-- 				<f:selectItem itemLabel="*#{msg.account}" itemValue="#{null}" /> -->
+<!-- 				<f:selectItems -->
+<!-- 					value="#{usersMB.allActiveAccounts}" -->
+<!-- 					var="account" itemValue="#{account}" -->
+<!-- 					itemLabel="#{account.descriptor}" /> -->
+<!-- 			</p:selectOneMenu> -->
+
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container60">
+				<h:outputLabel value="*#{msg.active}:" styleClass="Fs15 fontSemibold" />
+				<p:inputSwitch value="#{usersMB.user.active}"
+					onLabel="#{booleanListMB.booleanPositiveValue}" 
+					offLabel="#{booleanListMB.booleanNegativeValue}" />
+					
+				<h:outputLabel value="*#{msg.role}:" styleClass="Fs15 fontSemibold" />
+				<p:selectOneMenu
+					value="#{usersMB.user.role}" required="true"
+					label="#{msg.role}" title="#{msg.role}"
+					converter="roleConverter" styleClass="Wid80">
+					<f:selectItems
+						value="#{usersMB.allActiveRoles}"
+						var="role" itemValue="#{role}"
+						itemLabel="#{role.code}" />
+				</p:selectOneMenu>
+				
+				
+				<h:outputLabel value="*#{msg.firstName}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.firstName}" styleClass="Wid90" required="true" label="#{msg.firstName}" >
+					<f:validateLength minimum="2" />
+				</p:inputText>
+				
+				<h:outputLabel value="*#{msg.lastName}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.lastName}" styleClass="Wid90" required="true" label="#{msg.lastName}" >
+					<f:validateLength minimum="2" />
+				</p:inputText>
+				
+				<h:outputLabel value="*#{msg.username}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.username}" styleClass="Wid90" required="true" label="#{msg.username}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>
+				
+				<h:outputLabel value="*#{msg.email}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.email}" styleClass="Wid90" required="true" label="#{msg.email}" >
+					<f:validateLength minimum="4" />
+				</p:inputText>
+				
+				<h:outputLabel value="#{msg.phone}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.phone}" styleClass="Wid90" required="false" label="#{msg.phone}" >
+					<f:validateLength minimum="3" />
+				</p:inputText>
+				
+				<h:outputLabel value="#{msg.project}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText value="#{usersMB.user.account.project}" styleClass="Wid90" required="false" label="#{msg.project}" >
+					<f:validateLength minimum="2" />
+				</p:inputText>
+
+
+			</h:panelGrid>
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container100">
+				<p:commandButton value="#{msg.cancel}" icon="fa icon-cancel Fs16 white" styleClass="Fleft"
+					onclick="PF('userCreateDialogWidget').hide();" />
+					
+				<p:commandButton value="#{msg.submit}" icon="fa icon-ok Fs16 white" styleClass="Fright"
+					action="#{usersMB.createUser()}" process="@form"
+					update=":mainForm:usersTableID :mainForm:userCreateDialogForm"
+					oncomplete="if (!args.validationFailed){PF('userCreateDialogWidget').hide();}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

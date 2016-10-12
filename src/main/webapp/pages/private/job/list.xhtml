@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+
+		<ui:define name="content">
+			<h:outputScript name="jquery/jquery.js" library="primefaces"
+				target="head" />
+
+			<h:form id="mainForm">
+				<div class="ContainerIndent">
+					<div class="Container">
+						<p:dataTable id="jobsTableID" var="job" widgetVar="jobsTable" value="#{jobMB.jobs}"
+							rows="50" sortMode="multiple" filteredValue="#{jobMB.jobs}" filterEvent="enter"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="15,30,50,100" paginatorPosition="bottom"
+							paginator="true" emptyMessage="#{msg.noJobs}">
+
+							<f:facet name="header">
+								<div class="Fleft">
+									<ui:include src="../templates/export.xhtml">
+										<ui:param name="label" value="#{msg.export}" />
+										<ui:param name="fileName" value="#{msg.exportJobsFileName}" />
+										<ui:param name="dataTable" value="jobsTableID" />
+										<ui:param name="hasData" value="#{jobMB.jobs ne null}" />
+									</ui:include>
+								</div>
+								
+								<h:outputText value="#{msg.jobs}"/>
+							</f:facet>
+							
+							<p:column headerText="#{msg.id}" styleClass="Wid10"
+								sortBy="#{job.id}" filterBy="#{job.id}" filterMatchMode="exact">
+								<h:outputText value="#{job.id}" />
+							</p:column>
+
+							<p:column headerText="#{msg.status}" styleClass="Wid20"
+								sortBy="#{job.status.labelMessage}" 
+								filterBy="#{job.status}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('jobsTable').filter()" styleClass="Wid70">
+										<f:selectItem itemLabel="#{msg.all}" itemValue="#{null}" noSelectionOption="true" />
+										<f:selectItems value="#{processesListMB.allProcessJobStatusses}" var="status" itemValue="#{status}" itemLabel="#{status.labelMessage}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<h:outputText value="#{job.status.labelMessage}" />
+							</p:column>
+
+							<p:column headerText="#{msg.type}"
+								sortBy="#{job.type.labelMessage}" 
+								filterBy="#{job.type}" filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('jobsTable').filter()" styleClass="Wid70">
+										<f:selectItem itemLabel="#{msg.all}" itemValue="#{null}" noSelectionOption="true" />
+										<f:selectItems value="#{processesListMB.allProcessJobTypes}" var="jobType" itemValue="#{jobType}" itemLabel="#{jobType.labelMessage}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<h:outputText value="#{job.type.labelMessage}" />
+							</p:column>
+
+							<p:column headerText="#{msg.startDate}" sortBy="#{job.startDate}"
+								filterBy="#{job.startDate}" filterFunction="#{processesListMB.filterByDate}">
+								<f:facet name="filter">
+									<p:calendar pattern="#{dateMB.datePattern}" navigator="true">
+										<p:ajax event="dateSelect"  oncomplete="PF('jobsTable').filter()"/>
+									</p:calendar>
+								</f:facet>
+								<h:outputText value="#{dateMB.getClientDate(job.startDate)}">
+									<f:convertDateTime pattern="#{dateMB.secondsPattern}" timeZone="#{dateMB.timeZone}" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="#{msg.expireDate}" sortBy="#{job.expireDate}"
+								filterBy="#{job.expireDate}" filterFunction="#{processesListMB.filterByDate}">
+								<f:facet name="filter">
+									<p:calendar pattern="#{dateMB.datePattern}" navigator="true">
+										<p:ajax event="dateSelect"  oncomplete="PF('jobsTable').filter()"/>
+									</p:calendar>
+								</f:facet>
+								<h:outputText value="#{dateMB.getClientDate(job.expireDate)}">
+									<f:convertDateTime pattern="#{dateMB.secondsPattern}" timeZone="#{dateMB.timeZone}" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="#{msg.attempt}" styleClass="TexAlCenter Wid5" sortBy="#{job.attempt}">
+								<h:outputText value="#{job.attempt}" />
+							</p:column>
+
+							<p:column headerText="#{msg.actions}" exportable="false">
+								<p:commandButton id="jobInfoBtn"
+									icon="fa icon-popup Fs12" styleClass="GrayButton"
+									immediate="true" onclick="PF('jobDetailesDialogWidget').show();"
+									update=":mainForm:jobDetailesDialogForm">
+									<f:setPropertyActionListener target="#{jobMB.job}" value="#{job}" />
+								</p:commandButton>
+
+								<p:commandButton id="jobPauseBtn"
+									icon="fa icon-pause-1 Fs12 yellow" styleClass="GrayButton"
+									rendered="#{job.status.canBePaused() and userMB.permissionJobUpdate()}" immediate="true"
+									action="#{jobMB.pauseJob()}" update="@form" ajax="true">
+									<f:setPropertyActionListener target="#{jobMB.job}" value="#{job}" />
+								</p:commandButton>
+
+								<p:commandButton id="jobResumeBtn"
+									icon="fa icon-play-1 Fs12 green" styleClass="GrayButton"
+									rendered="#{job.status.canBeResumed() and userMB.permissionJobUpdate()}" immediate="true"
+									action="#{jobMB.resumeJob()}" update="@form" ajax="true">
+									<f:setPropertyActionListener target="#{jobMB.job}" value="#{job}" />
+								</p:commandButton>
+
+								<p:commandButton id="jobSuspendBtn"
+									icon="fa icon-stop-1 Fs12 red" styleClass="GrayButton"
+									rendered="#{job.status.canBeSuspended() and userMB.permissionJobUpdate()}" immediate="true"
+									action="#{jobMB.suspendJob()}" update="@form" ajax="true">
+									<f:setPropertyActionListener target="#{jobMB.job}" value="#{job}" />
+								</p:commandButton>
+
+								<p:commandButton id="jobRescheduleBtn"
+									icon="fa icon-clock Fs12 hardblue" styleClass="GrayButton"
+									rendered="#{userMB.permissionJobUpdate()}" immediate="true"
+									onclick="PF('jobRescheduleDialogWidget').show();"
+									update=":mainForm:jobRescheduleDialogForm">
+									<f:setPropertyActionListener target="#{jobMB.job}" value="#{job}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+						<ui:include src="../dialogs/jobRescheduleDialog.xhtml" />
+						<ui:include src="../dialogs/jobDetailesDialog.xhtml" />
+					</div>
+				</div>
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

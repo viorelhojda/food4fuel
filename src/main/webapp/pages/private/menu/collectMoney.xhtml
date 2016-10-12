@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+
+		<ui:define name="content">
+			<h:outputScript name="jquery/jquery.js" library="primefaces"
+				target="head" />
+
+
+			<p:panel header="#{msg.thisWeekToPayMenuItems}"
+				footer="#{msg.thisWeekRestaurantToPayMenuItems}" style="margin:10px"
+				toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage name="images/CasaBistriteana.jpg" />
+
+					<h:panelGrid columns="1">
+						<div class="Container">
+							<p:dataTable id="thisWeekToPayMenuItemsTableID" var="weeklyItem"
+								value="#{moneyMB.weeklyItems}">
+
+								<p:column headerText="#{msg.numberOfDailyMenus}"
+									styleClass="Wid20" style="text-align: center;"
+									sortBy="#{weeklyItem.numberItems}"
+									filterBy="#{weeklyItem.numberItems}" filterMatchMode="exact">
+									<h:outputText value="#{weeklyItem.numberItems}" />
+								</p:column>
+
+								<p:column headerText="#{msg.price}" styleClass="Wid20"
+									style="text-align: center;" sortBy="#{weeklyItem.price}"
+									filterBy="#{weeklyItem.price}" filterMatchMode="exact">
+									<h:outputText value="#{weeklyItem.price}" />
+								</p:column>
+
+								<p:column headerText="#{msg.user}" styleClass="Wid80"
+									sortBy="#{weeklyItem.user.account.firstNameLastName}"
+									filterBy="#{weeklyItem.user.account.firstNameLastName}"
+									filterMatchMode="exact">
+									<h:outputText value="#{weeklyItem.user.account.descriptor}" />
+								</p:column>
+
+								<p:column headerText="#{msg.status}" styleClass="Wid20"
+									style="text-align: center;" sortBy="#{weeklyItem.status}"
+									filterBy="#{weeklyItem.status}" filterMatchMode="exact">
+									<h:outputText value="#{weeklyItem.status}" />
+								</p:column>
+
+								<p:column headerText="#{msg.actions}" styleClass="Wid10"
+									exportable="false" >
+									<p:commandButton id="payInfoBtn"
+										icon="fa icon-money Fs12" styleClass="GrayButton"
+										immediate="true"
+										update=":thisWeekToPayMenuItemsTableID :totalOrderWeeklyLabelID"
+										actionListener="#{moneyMB.payWeeklyMenuItem(weeklyItem)}" >
+									</p:commandButton>
+								</p:column>
+
+							</p:dataTable>
+
+							<h:panelGrid columns="2">
+								<h3>#{msg.total}</h3>
+								<h:outputText class="hardblue" id="totalOrderWeeklyLabelID"
+									value="#{moneyMB.totalOrderWeekly}" />
+							</h:panelGrid>
+
+						</div>
+					</h:panelGrid>
+
+				</h:panelGrid>
+			</p:panel>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

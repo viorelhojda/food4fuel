@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>FOOD4FUEL</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        
+    <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+    <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+    <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+    
+    <link rel="shortcut icon" href="#{request.contextPath}/resources/sentinel-layout/images/LOGO.ico" />
+</h:head>
+
+<h:body class="fontRegular red-back">
+    
+    <div class="Container100 Top20Percent PosAbsolute MarAuto OvHidden">
+        <div class="Wid50 MarAuto OvHidden TexAlCenter">
+            <h:graphicImage name="images/error-face.svg" library="sentinel-layout" style="width: 100px;"/>
+            <div class="EmptyBox20"></div>
+            <span class="white Fs100 Wid100 DispBlock">#{msg.error404}</span>
+            <span class="white Wid100 DispBlock Fs24">#{msg.pageNotFound}</span><br/>
+            <span class="white Wid100 DispBlock Fs12">#{msg.cannotFindPage}</span><br/>
+            
+            <div class="EmptyBox20"></div>
+            <p:button value="#{msg.backToDashboard}" styleClass="Fs24" href="#{menuMB.goToDashboard()}" />
+            <div class="EmptyBox50"></div>
+        </div>
+    </div>
+    
+</h:body>
+
+</html>

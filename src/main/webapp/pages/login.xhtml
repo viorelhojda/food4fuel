@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<title>Food4Fuel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	
+	<h:outputScript library="javascript" name="timezone.js" />
+	
+	<h:outputScript name="js/layout.js" library="sentinel-layout" />
+	<h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+	<h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+	<h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+	
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/sentinel-layout/images/LOGO.ico" />
+</h:head>
+
+<link href="/resources/sentinel-layout/css/font-icon-layout.css"
+	rel="stylesheet" type="text/css" />
+	
+<h:body class="fontRegular login-back white-back" onload="setTimeZoneInCookie()">
+
+	<h:form id="loginForm" prependId="false">
+		<div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+			<a href="" id="login-logo"> 
+				<h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+				<span class="Fs30 FontTitilliumSemiBoldItalic Fleft">
+					<span class="softblue">#{msg.appTitileBusiness}</span>
+					<span class="hardblue">#{msg.appTitileProcess} #{msg.appTitileModel}</span>
+				</span>
+			</a>
+		</div>
+		
+		<p:growl id="messageGrowl" autoUpdate="true" sticky="false" />
+		
+		<div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10" id="login-box">
+			<div class="Container100">
+				<div class="Container100 TexAlCenter softblue Animated05 BoxSizeBorder TabBtn left TabBtnActiveLeft" role="1">
+					<div class="Container100 Fnone MarAuto Fs15">
+						<i class="icon-megaphone" />
+						<h:outputLabel value="#{applicationMB.applicationVersionWithDate}" />
+					</div>
+				</div>
+				
+				<div class="Container90 Fnone MarAuto TexAlCenter">
+					<p:outputLabel styleClass="EmptyBox50"/>
+					
+					<p:inputText id="username" required="true"
+						value="#{loginMB.username}" placeholder="#{msg.username}" autocomplete="off"
+						styleClass="Container80 Fnone MarAuto Fs18" />
+					<p:message for="username"/>
+						
+					<p:outputLabel styleClass="EmptyBox10"/>
+					
+					<p:password id="password" required="true"
+						value="#{loginMB.password}" placeholder="#{msg.password}" autocomplete="off"
+						styleClass="Container80 Fnone MarAuto Fs18" feedback="false" />
+					<p:message for="password"/>
+					
+					<p:outputLabel styleClass="EmptyBox30"/>
+					<p:commandButton id="login" value="#{msg.login}" styleClass="Fs16" action="#{loginMB.login}" ajax="false"/>
+					<p:outputLabel styleClass="EmptyBox20"/>
+					
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+
+</html>

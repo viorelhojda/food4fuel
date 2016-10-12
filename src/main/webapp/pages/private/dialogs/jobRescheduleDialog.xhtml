@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="jobRescheduleDialogWidget" id="jobRescheduleDialogId"
+		header="#{msg.reschedule}" modal="true" closeOnEscape="true" dynamic="true"
+		closable="true" draggable="true" resizable="false" appendTo="@(body)">
+		<h:form id="jobRescheduleDialogForm" prependId="false">
+			<h:panelGrid columns="3">
+				<h:outputText value="#{msg.rescheduleDate}" />
+				<p:calendar styleClass="calendarFillWidth" id="rescheduleCalendarId" 
+					required="true" label="#{msg.rescheduleDate}" showOn="button"
+					showOtherMonths="true" navigator="true" readonlyInput="false"
+					value="#{jobMB.rescheduleDate}" showButtonPanel="true"
+					timeZone="#{dateMB.timeZone}" pattern="#{dateMB.minutesPattern}"/>
+			</h:panelGrid>
+
+			<br />
+			<h:panelGrid styleClass="Container100" columns="2">
+				<p:commandButton value="#{msg.cancel}" icon="ui-icon-cancel" styleClass="Fleft"
+					onclick="PF('jobRescheduleDialogWidget').hide();" type="button" />
+					
+				<p:commandButton value="#{msg.submit}" icon="ui-icon-clock" styleClass="Fright"
+					action="#{jobMB.rescheduleJob()}" process="@form"
+					update=":mainForm:jobsTableID :mainForm:jobRescheduleDialogForm"
+					oncomplete="PF('jobRescheduleDialogWidget').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="jobDetailesDialogWidget" id="jobDetailesDialogId"
+		header="#{msg.detailes}" width="700" modal="true" closeOnEscape="true"
+		dynamic="true" closable="true" draggable="true" resizable="false"
+		appendTo="@(body)">
+		<h:form id="jobDetailesDialogForm" prependId="false">
+			<h:panelGrid columns="2" styleClass="Container100">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="#{msg.type}:" styleClass="Fs15 fontSemibold" />
+					<h:outputLabel value="#{jobMB.job.type.labelMessage}" />
+
+					<h:outputLabel value="#{msg.status}:"
+						styleClass="Fs15 fontSemibold" />
+					<h:outputLabel value="#{jobMB.job.status}" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel value="#{msg.attempt}:" styleClass="Fs15 fontSemibold" />
+					<h:outputText value="#{jobMB.job.attempt}" />
+
+					<h:outputLabel value="#{msg.startDate}:" styleClass="Fs15 fontSemibold" />
+					<h:outputLabel value="#{dateMB.getClientDate(jobMB.job.startDate)}">
+						<f:convertDateTime pattern="#{dateMB.secondsPattern}" timeZone="#{dateMB.timeZone}" />
+					</h:outputLabel>
+
+					<h:outputLabel value="#{msg.expireDate}:" styleClass="Fs15 fontSemibold" />
+					<h:outputLabel value="#{dateMB.getClientDate(jobMB.job.expireDate)}">
+						<f:convertDateTime pattern="#{dateMB.secondsPattern}" timeZone="#{dateMB.timeZone}" />
+					</h:outputLabel>
+				</h:panelGrid>
+			</h:panelGrid>
+			
+			<p:separator styleClass="Container100"/>
+
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

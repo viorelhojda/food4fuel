@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+
+		<ui:define name="content">
+			<h:outputScript name="jquery/jquery.js" library="primefaces"
+				target="head" />
+
+			<p:panel header="#{msg.preorderedMenuItems}"
+				footer="#{msg.restaurantPreorderedItems}" style="margin:10px"
+				toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+				<div class="Container">
+					<p:dataTable id="todayPreorderedMenuItemsTableID"
+						var="preorderMenuItem" widgetVar="preorderedMenuItemsTable"
+						value="#{orderFoodMB.preorderedMenuItems}">
+
+						<p:column headerText="#{msg.menuNumber}" styleClass="Wid10"
+							sortBy="#{preorderMenuItem.menuItem.number}"
+							filterBy="#{preorderMenuItem.menuItem.number}"
+							filterMatchMode="exact">
+							<h:outputText value="#{preorderMenuItem.menuItem.number}" />
+						</p:column>
+						<p:column headerText="#{msg.restaurant}" styleClass="Wid20"
+							sortBy="#{preorderMenuItem.menuItem.restaurant.name}"
+							filterBy="#{preorderMenuItem.menuItem.restaurant.name}"
+							filterMatchMode="exact">
+							<h:outputText
+								value="#{preorderMenuItem.menuItem.restaurant.name}" />
+						</p:column>
+						<p:column headerText="#{msg.description}" styleClass="Wid50"
+							sortBy="#{preorderMenuItem.menuItem.description}"
+							filterBy="#{preorderMenuItem.menuItem.description}"
+							filterMatchMode="exact">
+							<h:outputText value="#{preorderMenuItem.menuItem.description}" />
+						</p:column>
+						<p:column headerText="#{msg.status}" styleClass="Wid10"
+							sortBy="#{preorderMenuItem.status}"
+							filterBy="#{preorderMenuItem.status}" filterMatchMode="exact">
+							<h:outputText value="#{preorderMenuItem.status}" />
+						</p:column>
+						<p:column headerText="#{msg.user}" styleClass="Wid20"
+							sortBy="#{preorderMenuItem.user.account.firstNameLastName}"
+							filterBy="#{preorderMenuItem.user.account.firstNameLastName}"
+							filterMatchMode="exact">
+							<h:outputText
+								value="#{preorderMenuItem.user.account.firstNameLastName}" />
+						</p:column>
+					</p:dataTable>
+
+					<h3>
+						#{msg.total}
+						<h:outputText id="totalPreOrderItemsID" class="hardblue"
+							value="#{orderFoodMB.totalPreorderToday}" />
+					</h3>
+					<p:separator styleClass="Container100" />
+
+					<div class="Fright">
+						<p:commandButton icon="fa icon-cab Fs13 white"
+							value="#{msg.orderFood}" immediate="true" style="margin:6px"
+							actionListener="#{orderFoodMB.placeOrder()}"
+							update=":todayPreorderedMenuItemsTableID :todayOrderedMenuItemsTableID :totalPreOrderItemsID :totalOrderItemsID">
+						</p:commandButton>
+					</div>
+
+				</div>
+			</p:panel>
+
+			<p:panel header="#{msg.todayMenuItems}"
+				footer="#{msg.todayRestaurantMenuItems}" style="margin:10px"
+				toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+				<div class="Container">
+					<p:dataTable id="todayOrderedMenuItemsTableID" var="orderMenuItem"
+						widgetVar="orderedMenuItemsTable"
+						value="#{orderFoodMB.orderedMenuItems}" rows="10"
+						sortMode="multiple"
+						filteredValue="#{orderFoodMB.orderedMenuItems}"
+						filterEvent="enter"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50,100" paginatorPosition="bottom"
+						paginator="true">
+
+						<p:column headerText="#{msg.menuNumber}" styleClass="Wid10"
+							sortBy="#{orderMenuItem.menuItem.number}"
+							filterBy="#{orderMenuItem.menuItem.number}"
+							filterMatchMode="exact">
+							<h:outputText value="#{orderMenuItem.menuItem.number}" />
+						</p:column>
+						<p:column headerText="#{msg.restaurant}" styleClass="Wid20"
+							sortBy="#{orderMenuItem.menuItem.restaurant.name}"
+							filterBy="#{orderMenuItem.menuItem.restaurant.name}"
+							filterMatchMode="exact">
+							<h:outputText value="#{orderMenuItem.menuItem.restaurant.name}" />
+						</p:column>
+						<p:column headerText="#{msg.description}" styleClass="Wid50"
+							sortBy="#{orderMenuItem.menuItem.description}"
+							filterBy="#{orderMenuItem.menuItem.description}"
+							filterMatchMode="exact">
+							<h:outputText value="#{orderMenuItem.menuItem.description}" />
+						</p:column>
+						<p:column headerText="#{msg.status}" styleClass="Wid10"
+							sortBy="#{orderMenuItem.status}"
+							filterBy="#{orderMenuItem.status}" filterMatchMode="exact">
+							<h:outputText value="#{orderMenuItem.status}" />
+						</p:column>
+						<p:column headerText="#{msg.user}" styleClass="Wid20"
+							sortBy="#{orderMenuItem.user.account.firstNameLastName}"
+							filterBy="#{orderMenuItem.user.account.firstNameLastName}"
+							filterMatchMode="exact">
+							<h:outputText
+								value="#{orderMenuItem.user.account.firstNameLastName}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<h3>
+						#{msg.total}
+						<h:outputText id="totalOrderItemsID" class="hardblue"
+							value="#{orderFoodMB.totalOrderToday}" />
+					</h3>
+					<p:separator styleClass="Container100" />
+				</div>
+			</p:panel>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="roleCreateDialogWidget" id="roleCreateDialogId"
+		header="#{msg.create}" width="700" modal="true" closeOnEscape="true"
+		dynamic="true" closable="true" draggable="true" resizable="false"
+		appendTo="@(body)">
+		
+		<h:form id="roleCreateDialogForm" prependId="false">
+			<h:panelGrid columns="2" styleClass="Container50">
+				<h:outputLabel value="*#{msg.active}:" styleClass="Fs15 fontSemibold" />
+				<p:inputSwitch value="#{rolesMB.role.active}" required="true"
+					onLabel="#{booleanListMB.booleanPositiveValue}" 
+					offLabel="#{booleanListMB.booleanNegativeValue}" />
+					
+				<h:outputLabel value="*#{msg.code}:" styleClass="Fs15 fontSemibold" />
+				<p:inputText styleClass="Wid90" label="#{msg.code}"
+					value="#{rolesMB.role.code}" required="true" />
+			</h:panelGrid>
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container100">
+				<p:commandButton value="#{msg.cancel}" icon="fa icon-cancel Fs16 white" styleClass="Fleft"
+					onclick="PF('roleCreateDialogWidget').hide();" />
+					
+				<p:commandButton value="#{msg.submit}" icon="fa icon-ok Fs16 white" styleClass="Fright"
+					action="#{rolesMB.createRole()}" process="@form"
+					update=":mainForm:rolesTableID :mainForm:roleCreateDialogForm"
+					oncomplete="if (!args.validationFailed){PF('roleCreateDialogWidget').hide();}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

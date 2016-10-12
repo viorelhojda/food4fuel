@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div id="layout-menubar" class="Unselectable fontRegular">
+		<div class="layout-menubarinner-box" id="buttonArea">
+			<a href="#" id="layout-menubar-resize" class="BordRad3"
+				title="#{msg.menuResize}"><i class="icon-th-list-2"></i></a> <a
+				href="#" id="layout-menubar-resize2" class="BordRad3"
+				title="#{msg.menuOpen}"><i class="icon-menu"></i></a>
+		</div>
+
+		<ps:menu id="sm_leftmenu">
+			<p:menuitem id="sm_dashboard" value="#{msg.menuItemDashboard}"
+				icon="icon-home" outcome="#{menuMB.goToDashboard()}" />
+			<p:menuitem id="sm_users" value="#{msg.menuItemUsers}"
+				icon="icon-user" outcome="#{menuMB.goToUsers()}"
+				rendered="#{userMB.permissionUserView()}" />
+			<p:menuitem id="sm_roles" value="#{msg.menuItemRoles}"
+				icon="icon-th-1" outcome="#{menuMB.goToRoles()}"
+				rendered="#{userMB.permissionUserView()}" />
+			<p:menuitem id="sm_jobs" value="#{msg.menuItemJobs}"
+				icon="icon-play" outcome="#{menuMB.goToJobs()}"
+				rendered="#{userMB.permissionUserView()}" />
+			<p:menuitem id="sm_menu_setup" value="#{msg.menuItemMenuSetup}"
+				icon="icon-steam" outcome="#{menuMB.goToMenuSetup()}"
+				rendered="#{userMB.permissionUserMenuSetup()}" />
+			<p:menuitem id="sm_order" value="#{msg.menuItemOrderFood}"
+				icon="icon-food" outcome="#{menuMB.goToOrderFood()}"
+				rendered="#{userMB.permissionUserOrderFood()}" />
+			<p:menuitem id="sm_pay" value="#{msg.menuItemCollectMoney}"
+				icon="icon-money" outcome="#{menuMB.goToCollectMoney()}"
+				rendered="#{userMB.permissionCollectMoney()}" />
+			
+
+		</ps:menu>
+	</div>
+
+</ui:composition>

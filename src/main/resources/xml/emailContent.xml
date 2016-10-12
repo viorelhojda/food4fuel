@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<configuration>
+
+	<WelcomeDefault>
+		<from>noreply@atraxo.com</from>
+		<to></to>
+		<cc>vhojda@atraxo.com</cc>
+		<bcc></bcc>
+		<subject>[F4F]Welcome to F4F ${fullName}</subject>
+		<content>
+			<![CDATA[
+			<br/>
+			Hello ${firstName} and welcome to Food4Fuel!
+			<br/><br/>
+			
+			The purpose of the information you can find in this mail is to familiarize yourself with the working organization with F4F.
+			<br/><br/>
+			With F4F you can order food from different restaurant and catering locations in the city. Just make sure to pay up ! :) 
+			<br/><br/>
+			
+			<br/>
+			F4F account credentials:<br/>
+			<b>username: ${username} <br/></b>
+			<b>password: ${password}</b>
+			<br/><br/>
+			
+			Thank you and Welcome!
+			<br/><br/>
+			
+			Best Regards,
+			<br/>
+			F4F Team.
+			]]>
+		</content>
+	</WelcomeDefault>
+	
+	<OrderFood>
+		<from>noreply@atraxo.com</from>
+		<to></to>
+		<cc></cc>
+		<bcc></bcc>
+		<subject>[F4F]Comanda mancare ATRAXO ${todayDate}</subject>
+		<content>
+			<![CDATA[
+			<br/>
+			Buna ziua ${restaurantName} !
+			<br/><br/>
+			Pentru aceasta zi ${todayDate} am dori sa comandam urmatoarele:
+			<br/>			
+			<b>${food}</b>
+						
+			<br/><br/>
+			Va multumim!
+			<br/><br/>
+			
+			Toate cele bune,
+			<br/>
+			Echipa F4F [ATRAXO].
+			]]>
+		</content>
+	</OrderFood>
+	
+	<CollectMoney>
+		<from>noreply@atraxo.com</from>
+		<to></to>
+		<cc></cc>
+		<bcc></bcc>
+		<subject>[F4F]Strange banii pt mancare ${todayDate}</subject>
+		<content>
+			<![CDATA[
+			<br/>
+			Buna ziua !
+			<br/><br/>
+			Pentru aceasta zi ${todayDate} trebuie stransi urmatorii bani:
+			<br/><br/>			
+			<b>${money}</b>			
+			<br/>
+			Va multumim!
+			<br/><br/>
+			
+			Toate cele bune,
+			<br/>
+			Echipa F4F [ATRAXO].
+			]]>
+		</content>
+	</CollectMoney>
+	
+	<PayMoney>
+		<from>noreply@atraxo.com</from>
+		<to></to>
+		<cc></cc>
+		<bcc></bcc>
+		<subject>[F4F]Banii pt mancare ${restaurant}</subject>
+		<content>
+			<![CDATA[
+			<br/>
+			Buna ziua ${fullName}!
+			<br/><br/>
+			Pentru aceasta saptamana ${week} trebuie sa platiti urmatoarea suma de bani: <b>${money} RON</b> pentru restaurantul <b>${restaurant}</b>
+			<br/>
+			
+			Puteti sa oferiti banii oricarui responsabil care colecteaza banii : <b>${moneyCollector}</b>
+									
+			<br/><br/>
+			Va multumim!
+			<br/><br/>
+			
+			Toate cele bune,
+			<br/>
+			Echipa F4F [ATRAXO].
+			]]>
+		</content>
+	</PayMoney>
+	
+	<PreOrderFood>
+		<from>noreply@atraxo.com</from>
+		<to></to>
+		<cc></cc>
+		<bcc></bcc>
+		<subject>[F4F]Precomanda mancare ${todayDate}</subject>
+		<content>
+			<![CDATA[
+			<br/>
+			Buna ziua ${fullName}!
+			<br/><br/>
+			Pentru aceasta zi ${todayDate} nu ati comandat nimic. Daca doriti sa o faceti va rugam sa o faceti cat mai repede, intrucat peste 15 minute se va face comanda.
+			<br/>
+			
+			<br/><br/>
+			Daca nu mai doriti sa primiti acest tip de e-mail, puteti sa va dezactivati aceasta optiune in preferintele personale.
+									
+			<br/><br/>
+			Va multumim!
+			<br/><br/>
+			
+			Toate cele bune,
+			<br/>
+			Echipa F4F [ATRAXO].
+			]]>
+		</content>
+	</PreOrderFood>
+	
+	
+	<ERROR>
+		<from>noreply@atraxo.com</from>
+		<to>vhojda@atraxo.com</to>
+		<cc></cc>
+		<bcc></bcc>
+		<subject>FF ERROR: ERROR</subject>
+		<content>
+			<![CDATA[
+				Hello,
+				<br/><br/>
+				Job detailes: <br/>
+					- ID: ${jobID} <br/>
+					- Process Type: ${processType} <br/>
+				
+				<br/><br/>
+				<b>Message</b><br/>
+				${errorMessage}
+				
+				<br/><br/>
+				<b>StackTrace</b><br/>
+				${errorStackTrace}
+				
+				<br/><br/>
+				Thanks for investigating the problem.
+			]]>
+		</content>
+	</ERROR>
+</configuration>
+

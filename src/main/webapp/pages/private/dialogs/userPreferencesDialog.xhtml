@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="userPreferencesDialogWidget" id="userPreferencesDialogId"
+		header="#{msg.userPreferences}" width="700" modal="true" closeOnEscape="true"
+		dynamic="true" closable="true" draggable="true" resizable="false"
+		appendTo="@(body)">
+		
+		<h:form id="userPreferencesDialogForm" prependId="false">
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container60">
+				<h:outputLabel value="#{msg.remindPreOrder}:" styleClass="Fs15 fontSemibold" />
+				<p:inputSwitch value="#{userMB.user.preferences.remindPreOrder}"
+					onLabel="#{booleanListMB.booleanPositiveValue}" 
+					offLabel="#{booleanListMB.booleanNegativeValue}" />
+					
+				<h:outputLabel value="#{msg.remindPayUp}:" styleClass="Fs15 fontSemibold" />
+				<p:inputSwitch value="#{userMB.user.preferences.remindPayUp}"
+					onLabel="#{booleanListMB.booleanPositiveValue}" 
+					offLabel="#{booleanListMB.booleanNegativeValue}" />
+			</h:panelGrid>
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container100">
+				<p:commandButton value="#{msg.cancel}" icon="fa icon-cancel Fs16 white" styleClass="Fleft"
+					onclick="PF('userPreferencesDialogWidget').hide();" />
+					
+				<p:commandButton value="#{msg.update}" icon="fa icon-ok Fs16 white" styleClass="Fright"
+					action="#{userMB.updatePreferences()}" process="@form"
+					oncomplete="if (!args.validationFailed){PF('userPreferencesDialogWidget').hide();}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

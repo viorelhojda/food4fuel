@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:outputScript name="jquery/jquery.js" library="primefaces"
+			target="head" />
+
+		<h3 class="hardblue TexAlCenter">#{msg.dashboard}</h3>
+
+		<p:panel header="#{msg.restaurantCasaBistriteana}"
+			footer="#{msg.thisWeekMenu}" style="margin:10px" toggleable="true"
+			closable="true" toggleSpeed="500" closeSpeed="500">
+			<div class="Container">
+				<p:dataTable id="thisWeekCasaBistriteanaMenuTableID" var="menuItem"
+					widgetVar="thisWeekMenuItemsTable"
+					value="#{dashboardMB.thisWeekMenuItems}">
+					<p:column headerText="#{msg.menuNumber}" styleClass="Wid5">
+						<h:outputText value="#{menuItem.number}" />
+					</p:column>
+					<p:column headerText="#{msg.monday}" styleClass="Wid20">
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							action="#{dashboardMB.preorderMenuItem(menuItem.monday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem.monday)}" />
+						<h:outputText value="#{menuItem.monday.description}"
+							style="#{dashboardMB.getColumnStyleForToday(menuItem.monday)}" />
+					</p:column>
+					<p:column headerText="#{msg.tuesday}" styleClass="Wid20">
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem.tuesday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem.tuesday)}" />
+						<h:outputText value="#{menuItem.tuesday.description}"
+							style="#{dashboardMB.getColumnStyleForToday(menuItem.tuesday)}" />
+					</p:column>
+					<p:column headerText="#{msg.wednesday}" styleClass="Wid20">
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem.wednesday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem.wednesday)}" />
+						<h:outputText value="#{menuItem.wednesday.description}"
+							style="#{dashboardMB.getColumnStyleForToday(menuItem.wednesday)}" />
+					</p:column>
+					<p:column headerText="#{msg.thursday}" styleClass="Wid20">
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem.thursday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem.thursday)}" />
+						<h:outputText value="#{menuItem.thursday.description}"
+							style="#{dashboardMB.getColumnStyleForToday(menuItem.thursday)}" />
+					</p:column>
+					<p:column headerText="#{msg.friday}" styleClass="Wid20">
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem.friday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem.friday)}" />
+						<h:outputText value="#{menuItem.friday.description}"
+							style="#{dashboardMB.getColumnStyleForToday(menuItem.friday)}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+		</p:panel>
+
+		<p:panel header="#{msg.restaurantCasaBistriteana}"
+			footer="#{msg.nextWeekMenu}" style="margin:10px" toggleable="true" collapsed="true"
+			closable="true" toggleSpeed="500" closeSpeed="500">
+			<div class="Container">
+				<p:dataTable id="nextWeekCasaBistriteanaMenuTableID" var="menuItem"
+					widgetVar="nextWeekMenuItemsTable"
+					value="#{dashboardMB.nextWeekMenuItems}">
+					<p:column headerText="#{msg.menuNumber}" styleClass="Wid5">
+						<h:outputText value="#{menuItem.number}" />
+					</p:column>
+					<p:column headerText="#{msg.monday}" styleClass="Wid20">
+						<h:outputText value="#{menuItem.monday.description}" />
+					</p:column>
+					<p:column headerText="#{msg.tuesday}" styleClass="Wid20">
+						<h:outputText value="#{menuItem.tuesday.description}" />
+					</p:column>
+					<p:column headerText="#{msg.wednesday}" styleClass="Wid20">
+						<h:outputText value="#{menuItem.wednesday.description}" />
+					</p:column>
+					<p:column headerText="#{msg.thursday}" styleClass="Wid20">
+						<h:outputText value="#{menuItem.thursday.description}" />
+					</p:column>
+					<p:column headerText="#{msg.friday}" styleClass="Wid20">
+						<h:outputText value="#{menuItem.friday.description}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+		</p:panel>
+
+		<p:panel header="#{msg.orderedMenuItems}"
+			footer="#{msg.restaurantOrderedItems}" style="margin:10px"
+			toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+			<div class="Container">
+				<p:dataTable id="orderedMenuItemsTableID" var="orderMenuItem"
+					widgetVar="orderedMenuItemsTable"
+					value="#{dashboardMB.orderedMenuItems}" rows="10"
+					sortMode="multiple" filteredValue="#{dashboardMB.orderedMenuItems}"
+					filterEvent="enter"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,20,50,100" paginatorPosition="bottom"
+					paginator="true">
+
+					<p:column headerText="#{msg.menuNumber}" styleClass="Wid10"
+						sortBy="#{orderMenuItem.menuItem.number}"
+						filterBy="#{orderMenuItem.menuItem.number}"
+						filterMatchMode="exact">
+						<h:outputText value="#{orderMenuItem.menuItem.number}" />
+					</p:column>
+					<p:column headerText="#{msg.description}" styleClass="Wid60"
+						sortBy="#{orderMenuItem.menuItem.description}"
+						filterBy="#{orderMenuItem.menuItem.description}"
+						filterMatchMode="exact">
+						<h:outputText value="#{orderMenuItem.menuItem.description}" />
+					</p:column>
+					<p:column headerText="#{msg.date}" styleClass="Wid10"
+						sortBy="#{orderMenuItem.menuItem.date}"
+						filterBy="#{orderMenuItem.menuItem.date}" filterMatchMode="exact">
+						<h:outputText value="#{orderMenuItem.menuItem.date}" />
+					</p:column>
+					<p:column headerText="#{msg.status}" styleClass="Wid10"
+						sortBy="#{orderMenuItem.status}"
+						filterBy="#{orderMenuItem.status}" filterMatchMode="exact">
+						<h:outputText value="#{orderMenuItem.status}" />
+					</p:column>
+					<p:column headerText="#{msg.price}" styleClass="Wid10"
+						sortBy="#{orderMenuItem.menuItem.price}"
+						filterBy="#{orderMenuItem.menuItem.price}"
+						filterMatchMode="exact">
+						<h:outputText value="#{orderMenuItem.menuItem.price}" />
+					</p:column>
+
+					<p:column headerText="#{msg.actions}" styleClass="Wid5"
+						exportable="false">
+
+						<p:commandButton icon="fa icon-trash-2 Fs12 red"
+							styleClass="GrayButton"
+							disabled="#{!dashboardMB.canDeleteOrderedMenuItem(orderMenuItem)}"
+							actionListener="#{dashboardMB.deleteOrderedMenuItems(orderMenuItem)}"
+							update=":orderedMenuItemsTableID">
+							<p:confirm header="#{msg.confirmation}"
+								message="#{msg.deleteOrderMemuItemConfirmation}"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="#{msg.no}" type="button"
+								styleClass="ui-confirmdialog-no"
+								icon="ui-icon-close fa fa-close Fs14 white" />
+							<p:commandButton value="#{msg.yes}" type="button"
+								styleClass="ui-confirmdialog-yes"
+								icon="ui-icon-check fa fa-check Fs14 white" />
+						</p:confirmDialog>
+					</p:column>
+
+				</p:dataTable>
+			</div>
+			<div class="Fright">
+				<p:commandButton id="orderMenuItemsBtn"
+					icon="fa icon-food Fs14 white" value="#{msg.placeOrder}"
+					immediate="true" style="margin:6px"
+					actionListener="#{dashboardMB.placePreOrder()}"
+					update=":orderedMenuItemsTableID">
+				</p:commandButton>
+			</div>
+		</p:panel>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

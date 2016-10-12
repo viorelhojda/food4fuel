@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+
+		<ui:define name="content">
+			<h:outputScript name="jquery/jquery.js" library="primefaces"
+				target="head" />
+
+			<h:form id="mainForm">
+				<div class="ContainerIndent">
+					<div class="EmptyBox5" />
+
+					<p:commandButton id="roleCreateButtonID" icon="fa icon-plus Fs14 white" value="#{msg.createRole}" immediate="true"
+						rendered="#{userMB.permissionRoleCreate()}"
+						actionListener="#{rolesMB.instantiateNewRole()}"
+						onclick="PF('roleCreateDialogWidget').show();"
+						update=":mainForm:roleCreateDialogForm">
+					</p:commandButton>
+					
+					<div class="EmptyBox5" />
+					
+					<div class="Container">
+						<p:dataTable id="rolesTableID" value="#{rolesMB.rights}" var="right">
+							
+							<f:facet name="header">#{msg.permissions}</f:facet>
+							
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column rowspan="2" headerText="#{msg.rights}" styleClass="Wid20 Fs16" />
+									<p:column colspan="#{rolesMB.roles.size()}" headerText="#{msg.roles}" styleClass="Wid80 Fs16" />
+								</p:row>
+								<p:row>
+									<ui:repeat value="#{rolesMB.roles}" var="role" >
+										<p:column>
+											<f:facet name="header">
+        										<h:outputText value="#{role.code}" styleClass="Fs14 FontBold hardblue" />
+        										<p:spacer width="10"/>
+												<p:commandButton id="roleUpdateBtn" icon="fa icon-edit-1 Fs12" 
+													rendered="#{userMB.permissionRoleUpdate()}"
+													styleClass="GrayButton" immediate="true" 
+													onclick="PF('roleUpdateDialogWidget').show();"
+													update=":mainForm:roleUpdateDialogForm" ajax="true">
+													<f:setPropertyActionListener target="#{rolesMB.role}" value="#{role}" />
+<!-- 													<f:setPropertyActionListener target="#{rolesMB.code}" value="#{role.code}" /> -->
+												</p:commandButton>
+
+												<p:commandButton icon="fa icon-trash-2 Fs12 red" styleClass="GrayButton"
+													rendered="#{userMB.permissionRoleUpdate()}"
+													actionListener="#{rolesMB.deleteRole(role)}"
+													update="@form" ajax="true">
+													<p:confirm header="#{msg.confirmation}" message="#{msg.deleteRoleConfirmation}" icon="ui-icon-alert"/>
+												</p:commandButton>
+
+												<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+													<p:commandButton value="#{msg.no}" type="button"
+														styleClass="ui-confirmdialog-no"
+														icon="ui-icon-close fa fa-close Fs14 white" />
+													<p:commandButton value="#{msg.yes}" type="button"
+														styleClass="ui-confirmdialog-yes"
+														icon="ui-icon-check fa fa-check Fs14 white" />
+												</p:confirmDialog>
+											</f:facet>
+										</p:column>
+									</ui:repeat>
+								</p:row>
+							</p:columnGroup>
+
+							<p:column>
+								<h:outputText value="#{right.code}" styleClass="Fs14 FontBold #{right.code.cssStyle}" />
+							</p:column>
+
+							<p:columns value="#{rolesMB.roles}" var="role">
+								<p:inputSwitch value="#{rolesMB.roleRightMap[role.code.concat(right.code)][right][role]}"
+									rendered="#{userMB.permissionRoleUpdate()}"
+									onLabel="#{booleanListMB.booleanPositiveValue}"
+									offLabel="#{booleanListMB.booleanNegativeValue}" 
+									styleClass="#{rolesMB.roleRightMap[role.code.concat(right.code)][right][role] ? 'green' : 'red'}">
+									<p:ajax update="@this"/>
+								</p:inputSwitch>
+								
+								<h:outputText value="#{rolesMB.roleRightMap[role.code.concat(right.code)][right][role]}" 
+									rendered="!#{userMB.permissionRoleUpdate()}"
+									converter="booleanValueConverter" 
+									styleClass="#{rolesMB.roleRightMap[role.code.concat(right.code)][right][role] ? 'green' : 'red'}"/>
+							</p:columns>
+							
+							<f:facet name="footer">
+								<p:commandButton id="roleUpdateButtonID" value="#{msg.update}"
+									rendered="#{userMB.permissionRoleUpdate()}"
+									styleClass="Fs16" action="#{rolesMB.submit()}"
+									ajax="true" icon="fa icon-ok-2 Fs16 white" update="rolesTableID" />
+							</f:facet>
+						</p:dataTable>
+						
+					</div>
+				</div>
+				
+				<ui:include src="../dialogs/roleCreateDialog.xhtml" />
+				<ui:include src="../dialogs/roleUpdateDialog.xhtml" />
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

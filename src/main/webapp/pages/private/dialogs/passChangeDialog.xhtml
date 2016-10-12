@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="passChangeDialogWidget" id="passChangeDialogId"
+		header="#{msg.passChangeTitle}" width="700" modal="true" closeOnEscape="true"
+		dynamic="true" closable="true" draggable="true" resizable="false"
+		appendTo="@(body)">
+		
+		<h:form id="passChangeDialogForm" prependId="false">
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container60">
+			
+				<h:outputLabel value="*#{msg.oldPassword}:" styleClass="Fs15 fontSemibold" />
+				<p:password id="passwordChange1" required="true"
+						value="#{userMB.oldPassword}" label="#{msg.oldPassword}" autocomplete="off"
+						styleClass="Container90 Fnone MarAuto Fs18">
+						<f:validateLength maximum="50" minimum="3" />
+						<f:validator validatorId="passwordValidator" for="passwordChange1"/>
+				</p:password>
+				
+				<h:outputLabel value="*#{msg.newPassword}:" styleClass="Fs15 fontSemibold" />
+				<p:password id="passwordChange2" required="true" feedback="true"
+						value="#{userMB.newPassword}" label="#{msg.newPassword}" autocomplete="off"
+						styleClass="Container90 Fnone MarAuto Fs18" >
+						<f:validateLength maximum="50" minimum="3" />
+				</p:password>
+				
+			</h:panelGrid>
+			
+			<p:separator styleClass="Container100"/>
+			
+			<h:panelGrid columns="2" styleClass="Container100">
+				<p:commandButton value="#{msg.cancel}" icon="fa icon-cancel Fs14 white" styleClass="Fleft"
+					onclick="PF('passChangeDialogWidget').hide();" />
+					
+				<p:commandButton value="#{msg.change}" icon="fa icon-plug Fs14 white" styleClass="Fright"
+					action="#{userMB.changePassword()}" process="@form" validateClient="true" update="@form"
+					oncomplete="if (!args.validationFailed){PF('passChangeDialogWidget').hide();}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+
