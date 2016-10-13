@@ -12,20 +12,18 @@
 		<content>
 			<![CDATA[
 			<br/>
-			Hello ${firstName} and welcome to Food4Fuel!
+			Hello ${firstName} !
 			<br/><br/>
-			
-			The purpose of the information you can find in this mail is to familiarize yourself with the working organization with F4F.
+			With <b>Food4Fuel</b> you can order food from different restaurant and catering locations in the city. Just make sure to pay up ! :) 
 			<br/><br/>
-			With F4F you can order food from different restaurant and catering locations in the city. Just make sure to pay up ! :) 
+			The link to the app: <b><a href="http://autodeploy:39080/Food4Fuel/">Foof4Fuel</a></b>		
 			<br/><br/>
-			
-			<br/>
 			F4F account credentials:<br/>
 			<b>username: ${username} <br/></b>
 			<b>password: ${password}</b>
 			<br/><br/>
-			
+			Don't forget to check and update your notification preferences from Preferences page !
+			<br/><br/>
 			Thank you and Welcome!
 			<br/><br/>
 			
