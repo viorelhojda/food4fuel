@@ -11,8 +11,8 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-<!-- 		<server.development.demo.folder.path>D:\playground\tomcat\webapps\Food4Fuel</server.development.demo.folder.path> -->
-<!-- 		<server.development.demo.war.path>D:\playground\tomcat\webapps\Food4Fuel.war</server.development.demo.war.path> -->
+		<!-- <server.development.demo.folder.path>D:\playground\tomcat\webapps\Food4Fuel</server.development.demo.folder.path> -->
+		<!-- <server.development.demo.war.path>D:\playground\tomcat\webapps\Food4Fuel.war</server.development.demo.war.path> -->
 		<maven.build.timestamp.format>dd MMM yyyy</maven.build.timestamp.format>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -214,27 +214,28 @@
 				</configuration>
 			</plugin>
 
-<!-- 			<plugin> -->
-<!-- 				<artifactId>maven-antrun-plugin</artifactId> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>deploy-war-development-server</id> -->
-<!-- 						<phase>install</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>run</goal> -->
-<!-- 						</goals> -->
-<!-- 						<configuration> -->
-<!-- 							<tasks> -->
-<!-- 								<delete dir="${server.development.demo.folder.path}" -->
-<!-- 									includeemptydirs="true" /> -->
-<!-- 								<delete file="${server.development.demo.war.path}" /> -->
-<!-- 								<copy file="target/Food4Fuel.war" tofile="${server.development.demo.war.path}" /> -->
-<!-- 							</tasks> -->
-<!-- 						</configuration> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
-			
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-antrun-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>deploy-war-development-server</id> -->
+			<!-- <phase>install</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>run</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <tasks> -->
+			<!-- <delete dir="${server.development.demo.folder.path}" -->
+			<!-- includeemptydirs="true" /> -->
+			<!-- <delete file="${server.development.demo.war.path}" /> -->
+			<!-- <copy file="target/Food4Fuel.war" tofile="${server.development.demo.war.path}" 
+				/> -->
+			<!-- </tasks> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+
 		</plugins>
 
 		<pluginManagement>
@@ -313,6 +314,17 @@
 					<configuration>
 						<source>1.7</source>
 						<target>1.7</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://autodeploy:39080/manager/text</url>
+						<server>TomcatServer</server>
+						<path>/Food4Fuel</path>
 					</configuration>
 				</plugin>
 			</plugins>
