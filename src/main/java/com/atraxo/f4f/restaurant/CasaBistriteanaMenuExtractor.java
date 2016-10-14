@@ -51,10 +51,10 @@ public class CasaBistriteanaMenuExtractor implements RestaurantMenuExtractor{
 			
 			Date date = null;
 			if ( id.getWeekNumber() == 1) {
-				date = DateUtils.getCurrentWeekDay(id.getDayNumber()).getTime();
+				date = DateUtils.getNextWeekDay(id.getDayNumber()).getTime();
 			}
 			else if ( id.getWeekNumber() == 2) {
-				date = DateUtils.getNextWeekDay(id.getDayNumber()).getTime();
+				date = DateUtils.getNextNextWeekDay(id.getDayNumber()).getTime();
 			}
 			mi.setDate(date);
 			

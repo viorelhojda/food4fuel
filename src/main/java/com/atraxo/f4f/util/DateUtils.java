@@ -77,6 +77,12 @@ public class DateUtils {
 		return cal;
 	}
 	
+	public static Calendar getNextNextWeekDay(int numberOfDayInWeek){
+		Calendar cal = getCurrentWeekDay(numberOfDayInWeek);
+		cal.add(Calendar.DAY_OF_MONTH, 14);
+		return cal;
+	}
+	
 	public static Calendar getPreviousWeekDay(int numberOfDayInWeek){
 		Calendar cal = getCurrentWeekDay(numberOfDayInWeek);
 		cal.add(Calendar.DAY_OF_MONTH, -7);
