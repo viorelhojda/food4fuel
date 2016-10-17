@@ -73,6 +73,11 @@ public class OrderFoodEmailJobAction extends GenericJobAction {
 					ProcessJobEmailService.getInstance().sendOrderFoodMail(resKey, sb.toString());
 				}
 			}
+			
+			
+			//also, make sure to order the items
+			orderMenuItemFacade.placeOrder(items);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error("ERROR:could not execute action !", e);

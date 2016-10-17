@@ -73,13 +73,6 @@ public enum ProcessJobTypeEnum {
 					SettingsBundleUtils.REMINDER_WEEKLY_COLLECT_HOURS)));
 			cal.set(Calendar.MINUTE, Integer.parseInt(SettingsBundleUtils.getSetting(
 					SettingsBundleUtils.REMINDER_WEEKLY_COLLECT_MIN)));
-			
-			//TODO remove
-//			cal = Calendar.getInstance();
-//			cal.set(Calendar.HOUR_OF_DAY, 12);
-//			cal.set(Calendar.MINUTE, 38);
-//			cal.set(Calendar.SECOND, 0);
-//			cal.set(Calendar.MILLISECOND, 0);
 		} 
 		else if ( this.equals(ProcessJobTypeEnum.WEEKLY_EMAIL_REMINDER_PAY_MONEY) ) {
 			//Friday 10:00 
@@ -88,37 +81,18 @@ public enum ProcessJobTypeEnum {
 					SettingsBundleUtils.REMINDER_WEEKLY_PAY_HOURS)));
 			cal.set(Calendar.MINUTE, Integer.parseInt(SettingsBundleUtils.getSetting(
 					SettingsBundleUtils.REMINDER_WEEKLY_PAY_MIN)));
-			
-			//TODO remove
-//			cal = Calendar.getInstance();
-//			cal.set(Calendar.HOUR_OF_DAY, 15);
-//			cal.set(Calendar.MINUTE, 25);
 		}
 		else if ( this.equals(ProcessJobTypeEnum.DAILY_EMAIL_ORDER_FOOD) ) {
-			//daily 10:30 
+			//daily 10:00 
 			cal = DateUtils.getPreviousDay(
 					Integer.parseInt(SettingsBundleUtils.getSetting(SettingsBundleUtils.REMINDER_DAILY_ORDER_HOURS)),
 					Integer.parseInt(SettingsBundleUtils.getSetting(SettingsBundleUtils.REMINDER_DAILY_ORDER_MIN)));
-			
-			//TODO remove
-//			cal = Calendar.getInstance();
-//			cal.set(Calendar.HOUR_OF_DAY, 11);
-//			cal.set(Calendar.MINUTE, 50);
-//			cal.set(Calendar.SECOND, 0);
-//			cal.set(Calendar.MILLISECOND, 0);
 		}
 		else if ( this.equals(ProcessJobTypeEnum.DAILY_EMAIL_REMINDER_PREORDER_FOOD) ) {
 			//daily 09:45 
 			cal = DateUtils.getPreviousDay(
 					Integer.parseInt(SettingsBundleUtils.getSetting(SettingsBundleUtils.REMINDER_DAILY_PREORDER_HOURS)),
 					Integer.parseInt(SettingsBundleUtils.getSetting(SettingsBundleUtils.REMINDER_DAILY_PREORDER_MIN)));
-			
-			//TODO remove
-//			cal = Calendar.getInstance();
-//			cal.set(Calendar.HOUR_OF_DAY, 16);
-//			cal.set(Calendar.MINUTE, 42);
-//			cal.set(Calendar.SECOND, 0);
-//			cal.set(Calendar.MILLISECOND, 0);
 		}
 		
 		return cal;
