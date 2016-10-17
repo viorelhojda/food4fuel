@@ -1,8 +1,10 @@
 package com.atraxo.f4f.job.quartz.action;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.xssf.model.CalculationChain;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionException;
 
@@ -26,7 +28,7 @@ public class PreOrderFoodEmailJobAction extends GenericJobAction {
 	private ProcessJobFacade processJobFacade = new ProcessJobFacade();
 	private OrderMenuItemFacade orderMenuItemFacade = new OrderMenuItemFacade();
 	private UserFacade userFacade = new UserFacade();
-	
+
 	@Override
 	public JobActionResponseEnum getSuccessJobActionResponse() {
 		return JobActionResponseEnum.STAY_ALIVE;
@@ -42,24 +44,29 @@ public class PreOrderFoodEmailJobAction extends GenericJobAction {
 		}
 		boolean actionExecuted = true;
 
-//		Integer jobId = jobDataMap.getIntegerFromString(QuartzJobAction.PROCESS_JOB_ID);
-//		ProcessEmailJob job = (ProcessEmailJob) processJobFacade.find(jobId);
+		//		Integer jobId = jobDataMap.getIntegerFromString(QuartzJobAction.PROCESS_JOB_ID);
+		//		ProcessEmailJob job = (ProcessEmailJob) processJobFacade.find(jobId);
 
-		try {
-			List<User> users = userFacade.listAllActive();
-			for (User user : users){
-				List<OrderRestaurantMenuItem> preOrderedItems = orderMenuItemFacade.getTodayItems(user, MenuItemStatus.getEatableStatuses());
-				if ( preOrderedItems.isEmpty() ){
-					//send mail to pay the money [if the case]
-					if( user.getPreferences().getRemindPreOrder()) {
-						ProcessJobEmailService.getInstance().sendPreOrderMail(user);
+		Calendar calToday = Calendar.getInstance();
+		boolean weekend = calToday.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY || calToday.get(Calendar.DAY_OF_WEEK)==Calendar.MONDAY; 
+
+		if ( !weekend ) { 
+			try {
+				List<User> users = userFacade.listAllActive();
+				for (User user : users){
+					List<OrderRestaurantMenuItem> preOrderedItems = orderMenuItemFacade.getTodayItems(user, MenuItemStatus.getEatableStatuses());
+					if ( preOrderedItems.isEmpty() ){
+						//send mail to pay the money [if the case]
+						if( user.getPreferences().getRemindPreOrder()) {
+							ProcessJobEmailService.getInstance().sendPreOrderMail(user);
+						}
 					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOGGER.error("ERROR:could not execute action !", e);
+				actionExecuted = false;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.error("ERROR:could not execute action !", e);
-			actionExecuted = false;
 		}
 
 		if ( LOGGER.isDebugEnabled() ){
