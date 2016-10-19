@@ -48,7 +48,7 @@ public class OrderFoodEmailJobAction extends GenericJobAction {
 //		ProcessEmailJob job = (ProcessEmailJob) processJobFacade.find(jobId);
 
 		try {
-			List<OrderRestaurantMenuItem> items = orderMenuItemFacade.getTodayItems(MenuItemStatus.ORDERED);
+			List<OrderRestaurantMenuItem> items = orderMenuItemFacade.getTodayItems(MenuItemStatus.PRE_ORDERED);
 
 			Map<Restaurant, Map<Integer,List<OrderRestaurantMenuItem>> > fullMap = RestaurantMenuHelper.extractFullRestaurantMenuItemsMap(items);
 
