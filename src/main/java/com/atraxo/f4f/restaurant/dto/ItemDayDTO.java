@@ -77,5 +77,13 @@ public class ItemDayDTO {
 		this.price = price;
 	}
 	
+	public String extractFirstCourse(){
+		return description.substring(0,description.indexOf("|"));
+	}
+	
+	public String extractSecondCourse(){
+		return description.substring(description.indexOf("|")+1,description.length());
+	}
+	
 	
 }

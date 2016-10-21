@@ -139,25 +139,43 @@ public class CasaBistriteanaMenuExtractor implements RestaurantMenuExtractor{
 						}
 					}
 				}
-
-				//also add some soup menu items
-				ItemDayDTO iDay1 = new ItemDayDTO();
-				iDay1.setDay(day);
-				iDay1.setDayNumber(j+1);
-				iDay1.setWeekNumber(1);
-				iDay1.setNr(count);
-				iDay1.setPrice(new Double(5));
-				iDay1.setDescription("Supa MENIU");
-				itemDays.add(iDay1);
 				
-				ItemDayDTO iDay2 = new ItemDayDTO();
-				iDay2.setDay(day);
-				iDay2.setDayNumber(j+1);
-				iDay2.setWeekNumber(2);
-				iDay2.setNr(count);
-				iDay2.setPrice(new Double(5));
-				iDay2.setDescription("Supa MENIU");
-				itemDays.add(iDay2);
+				//also add some soup menu items
+				ItemDayDTO iDay11 = new ItemDayDTO();
+				iDay11.setDay(day);
+				iDay11.setDayNumber(j+1);
+				iDay11.setWeekNumber(1);
+				iDay11.setNr(count);
+				iDay11.setPrice(new Double(4));
+				iDay11.setDescription("Felul 1 Meniu 3 (Supa)");
+				itemDays.add(iDay11);
+				
+				ItemDayDTO iDay12 = new ItemDayDTO();
+				iDay12.setDay(day);
+				iDay12.setDayNumber(j+1);
+				iDay12.setWeekNumber(1);
+				iDay12.setNr(count+1);
+				iDay12.setPrice(new Double(6));
+				iDay12.setDescription("Felul 2 Meniu 3");
+				itemDays.add(iDay12);
+				
+				ItemDayDTO iDay21 = new ItemDayDTO();
+				iDay21.setDay(day);
+				iDay21.setDayNumber(j+1);
+				iDay21.setWeekNumber(2);
+				iDay21.setNr(count);
+				iDay21.setPrice(new Double(4));
+				iDay21.setDescription("Felul 1 Meniu 3 (Supa)");
+				itemDays.add(iDay21);
+				
+				ItemDayDTO iDay22 = new ItemDayDTO();
+				iDay22.setDay(day);
+				iDay22.setDayNumber(j+1);
+				iDay22.setWeekNumber(2);
+				iDay22.setNr(count+1);
+				iDay22.setPrice(new Double(6));
+				iDay22.setDescription("Felul 2 Meniu 3");
+				itemDays.add(iDay22);
 				
 			}
 
