@@ -186,6 +186,10 @@ public class User extends AbstractTimestamp implements IDescriptor {
 	public void setPreferences(UserPreferences preferences) {
 		this.preferences = preferences;
 	}
+
+	public boolean isAdmin() {
+		return role.getCode().equals("ADMIN");
+	}
 	
 
 }

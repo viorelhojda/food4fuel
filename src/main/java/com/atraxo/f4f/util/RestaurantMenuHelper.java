@@ -86,7 +86,9 @@ public class RestaurantMenuHelper {
 	public static String getNamesForUsers(List<User> users){
 		StringBuilder email = new StringBuilder();
 		for ( User u : users ){
-			email.append(u.getAccount().getFirstNameLastName()).append(";");
+			if(!u.isAdmin()) {
+				email.append(u.getAccount().getFirstNameLastName()).append(";");
+			}
 		}
 		return email.toString();
 	}
