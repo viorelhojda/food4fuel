@@ -48,7 +48,7 @@ public class PreOrderFoodEmailJobAction extends GenericJobAction {
 		//		ProcessEmailJob job = (ProcessEmailJob) processJobFacade.find(jobId);
 
 		Calendar calToday = Calendar.getInstance();
-		boolean weekend = calToday.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY || calToday.get(Calendar.DAY_OF_WEEK)==Calendar.MONDAY; 
+		boolean weekend = calToday.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY || calToday.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY; 
 
 		if ( !weekend ) { 
 			try {
