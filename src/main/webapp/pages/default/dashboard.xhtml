@@ -68,26 +68,46 @@
 			footer="#{msg.nextWeekMenu}" style="margin:10px" toggleable="true" collapsed="true"
 			closable="true" toggleSpeed="500" closeSpeed="500">
 			<div class="Container">
-				<p:dataTable id="nextWeekCasaBistriteanaMenuTableID" var="menuItem"
+				<p:dataTable id="nextWeekCasaBistriteanaMenuTableID" var="menuItem2"
 					widgetVar="nextWeekMenuItemsTable"
 					value="#{dashboardMB.nextWeekMenuItems}">
-					<p:column headerText="#{msg.menuNumber}" styleClass="Wid5">
-						<h:outputText value="#{menuItem.number}" />
+										<p:column headerText="#{msg.menuNumber}" styleClass="Wid5">
+						<h:outputText value="#{menuItem2.number}" />
 					</p:column>
 					<p:column headerText="#{msg.monday}" styleClass="Wid20">
-						<h:outputText value="#{menuItem.monday.description}" />
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							action="#{dashboardMB.preorderMenuItem(menuItem2.monday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem2.monday)}" />
+						<h:outputText value="#{menuItem2.monday.description}"/>
 					</p:column>
 					<p:column headerText="#{msg.tuesday}" styleClass="Wid20">
-						<h:outputText value="#{menuItem.tuesday.description}" />
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem2.tuesday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem2.tuesday)}" />
+						<h:outputText value="#{menuItem2.tuesday.description}"/>
 					</p:column>
 					<p:column headerText="#{msg.wednesday}" styleClass="Wid20">
-						<h:outputText value="#{menuItem.wednesday.description}" />
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem2.wednesday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem2.wednesday)}" />
+						<h:outputText value="#{menuItem2.wednesday.description}"/>
 					</p:column>
 					<p:column headerText="#{msg.thursday}" styleClass="Wid20">
-						<h:outputText value="#{menuItem.thursday.description}" />
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem2.thursday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem2.thursday)}" />
+						<h:outputText value="#{menuItem2.thursday.description}"/>
 					</p:column>
 					<p:column headerText="#{msg.friday}" styleClass="Wid20">
-						<h:outputText value="#{menuItem.friday.description}" />
+						<p:commandButton icon="fa icon-food Fs12 blue"
+							styleClass="GrayButton" update=":orderedMenuItemsTableID"
+							actionListener="#{dashboardMB.preorderMenuItem(menuItem2.friday)}"
+							rendered="#{dashboardMB.shouldDisplay(menuItem2.friday)}" />
+						<h:outputText value="#{menuItem2.friday.description}"/>
 					</p:column>
 				</p:dataTable>
 			</div>
