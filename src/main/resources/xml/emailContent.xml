@@ -37,7 +37,7 @@
 	<OrderFood>
 		<from>noreply@atraxo.com</from>
 		<to></to>
-		<cc></cc>
+		<cc>csaranyi@fuelplus.com</cc>
 		<bcc></bcc>
 		<subject>[F4F]Comanda mancare ATRAXO ${todayDate}</subject>
 		<content>
