@@ -16,7 +16,7 @@
 			<br/><br/>
 			With <b>Food4Fuel</b> you can order food from different restaurant and catering locations in the city. Just make sure to pay up ! :) 
 			<br/><br/>
-			The link to the app: <b><a href="http://autodeploy:39080/Food4Fuel/">Food4Fuel</a></b>		
+			The link to the app: <b><a href="http://autodeploy:39181/Food4Fuel/">Food4Fuel</a></b>		
 			<br/><br/>
 			F4F account credentials:<br/>
 			<b>username: ${username} <br/></b>
@@ -133,7 +133,7 @@
 			Va multumim!
 			
 			<br/><br/>
-			<b><a href="http://autodeploy:39080/Food4Fuel/">Food4Fuel</a></b>
+			<b><a href="http://autodeploy:39181/Food4Fuel/">Food4Fuel</a></b>
 			<br/>	
 			Toate cele bune,
 			<br/>

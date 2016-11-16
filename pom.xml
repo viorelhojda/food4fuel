@@ -322,7 +322,7 @@
 					<artifactId>tomcat7-maven-plugin</artifactId>
 					<version>2.2</version>
 					<configuration>
-						<url>http://autodeploy:39080/manager/text</url>
+						<url>http://autodeploy:39181/manager/text</url>
 						<server>TomcatServer</server>
 						<path>/Food4Fuel</path>
 					</configuration>
