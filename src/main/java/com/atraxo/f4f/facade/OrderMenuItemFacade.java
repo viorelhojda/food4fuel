@@ -87,7 +87,7 @@ public class OrderMenuItemFacade {
 		}
 		orderRestaurantMenuItemDAO.beginTransaction();
 		List<OrderRestaurantMenuItem> orderItems = orderRestaurantMenuItemDAO.findBetweenDates(
-				DateUtils.getCurrentWeekDay(1).getTime(), 
+				DateUtils.getPreviousWeekDay(1).getTime(), 
 				DateUtils.getCurrentWeekDay(7).getTime(),
 				MenuItemStatus.getPayableStatuses());
 		orderRestaurantMenuItemDAO.commitAndCloseTransaction();
