@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sentinel-theme-2.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/sentinel-theme-2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
